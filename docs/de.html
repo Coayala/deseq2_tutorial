@@ -171,7 +171,7 @@ data</a></li>
   <a href="input.html">Quantifying data</a>
 </li>
 <li>
-  <a href="deseq2.html">Differential expression analysis</a>
+  <a href="de.html">Differential expression analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -201,6 +201,28 @@ href="https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc
 <p>The data for this tutorial comes from an the salivary glands of 12
 <em>N. pustulatus</em> beetles, half of which were starved from 5
 days.</p>
+<pre><code>## Rows: 12 Columns: 3
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): sampleID, gender, condition
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 12 × 3
+##    sampleID gender condition
+##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    
+##  1 FPF1     female fed      
+##  2 FPF2     female fed      
+##  3 FPF3     female fed      
+##  4 FPS1     female starved  
+##  5 FPS2     female starved  
+##  6 FPS3     female starved  
+##  7 MPF1     male   fed      
+##  8 MPF2     male   fed      
+##  9 MPF3     male   fed      
+## 10 MPS1     male   starved  
+## 11 MPS2     male   starved  
+## 12 MPS3     male   starved</code></pre>
 </div>
 </div>
 </div>

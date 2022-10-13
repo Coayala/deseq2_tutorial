@@ -1,5 +1,5 @@
 ---
-title: "Differential expression analysis"
+title: "DE analysis"
 ---
 
 # Importing data
@@ -12,9 +12,67 @@ One of these tools is the `tximport` package which can import and summarize tran
 
 The data for this tutorial comes from an the salivary glands of 12 *N. pustulatus* beetles, half of which were starved from 5 days. 
 
-```{r include=FALSE, warning=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+kableExtra::kbl(
+  read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv')
+  ) %>% kableExtra::kable_material(lightable_options = 'stripped')
+  
+```
+
+Quantification of the data was done with `Kallisto`. The ouput of `Kallisto` produces at least two files per sample: `abundances.tsv` and `abundances.h5`.
+
+This data can be imported directly using `tximport` as follows:
+
+```{r eval=FALSE}
+library(tximport)
+library(magrittr)
+library(stringr)
+
+sample_files <- list.files(path = dir,
+                           pattern = '.h5',
+                           recursive = TRUE,
+                           full.names = TRUE)
+sample_names <- basename(sample_files) %>% 
+  str_remove(., '.h5')
+
+txi.kallisto <- tximport(files, type = "kallisto", txOut = TRUE)
+```
+
+However, due to the size of the `.h5` files today we will be using the dataframe that results of importing the data with `tximport`. Both of these datasets can be downloaded from the [tutorial GitHub repository](https://github.com/Coayala/deseq2_tutorial) as follows.
+
+```{r}
 library(readr)
-read_csv('data/metadata.csv')
+library(dplyr)
+
+count_data <- read_csv(
+  'https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/kallisto_counts.csv'
+  ) %>% 
+  column_to_rownames(var = 'transcriptID')
+
+metadata <- read_csv(
+  'https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv'
+  )
 
 ```
+
+# Entering the data into DESeq2
+
+As most `Bioconductor` packages, `DESeq2` has its own custom class (the `DESeqDataSet` object) to ensure that all the data needed for the analysis is provided and its in the correct format.
+
+For example, data imported from other `Bioconductor` packages may be contained in a `SummarizedExperiment` object as it is commonly used to transfer data between different packages.
+
+In our case, our count data in in a dataframe. So in order to construct the `DESeqDataSet` object we can do the following:
+
+```{r}
+library(DESeq2)
+
+dds <- DESeqDataSetFromMatrix(countData = count_data,
+                                       colData = metadata,
+                                       design= ~ condition)
+```
+
+
+
 
