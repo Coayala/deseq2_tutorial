@@ -7,7 +7,7 @@
 
     
     
-    <title>Differential expression analysis</title>
+    <title>DE analysis</title>
     <!-- Material Design fonts -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -26,10 +26,81 @@
         <script src="site_libs/bootstrap_material-0.1/ripples.min.js"></script>
         <link href="site_libs/material-0.1/material.css" rel="stylesheet" />
         <script src="site_libs/material-0.1/material.js"></script>
+        <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+        <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
         <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
         <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
     
     
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          background-color: #ffffff;
+          color: #a0a0a0;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+      div.sourceCode
+        { color: #1f1c1b; background-color: #ffffff; }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span { color: #1f1c1b; } /* Normal */
+      code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+      code span.an { color: #ca60ca; } /* Annotation */
+      code span.at { color: #0057ae; } /* Attribute */
+      code span.bn { color: #b08000; } /* BaseN */
+      code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+      code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #924c9d; } /* Char */
+      code span.cn { color: #aa5500; } /* Constant */
+      code span.co { color: #898887; } /* Comment */
+      code span.cv { color: #0095ff; } /* CommentVar */
+      code span.do { color: #607880; } /* Documentation */
+      code span.dt { color: #0057ae; } /* DataType */
+      code span.dv { color: #b08000; } /* DecVal */
+      code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+      code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+      code span.fl { color: #b08000; } /* Float */
+      code span.fu { color: #644a9b; } /* Function */
+      code span.im { color: #ff5500; } /* Import */
+      code span.in { color: #b08000; } /* Information */
+      code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+      code span.op { color: #1f1c1b; } /* Operator */
+      code span.ot { color: #006e28; } /* Other */
+      code span.pp { color: #006e28; } /* Preprocessor */
+      code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+      code span.sc { color: #3daee9; } /* SpecialChar */
+      code span.ss { color: #ff5500; } /* SpecialString */
+      code span.st { color: #bf0303; } /* String */
+      code span.va { color: #0057ae; } /* Variable */
+      code span.vs { color: #bf0303; } /* VerbatimString */
+      code span.wa { color: #bf0303; } /* Warning */
+    </style>
     
         <link rel="stylesheet" href="css/styles.css" type="text/css" />
     
@@ -124,7 +195,7 @@
       <div class="row">
         <div class="col-xs-3">
 	  	  <div id="header">
-	    <h1 class="title">Differential expression analysis</h1>
+	    <h1 class="title">DE analysis</h1>
 	    	    	    	  </div>
 	  	</div>
       </div>
@@ -139,6 +210,19 @@
 <ul>
 <li><a href="#importing-data" id="toc-importing-data">Importing
 data</a></li>
+<li><a href="#building-the-deseq2-object"
+id="toc-building-the-deseq2-object">Building the DESeq2 object</a></li>
+<li><a href="#pre-filtering-the-data-set"
+id="toc-pre-filtering-the-data-set">Pre-filtering the data set</a></li>
+<li><a href="#setting-up-your-comparisons"
+id="toc-setting-up-your-comparisons">Setting up your
+comparisons</a></li>
+<li><a href="#data-exploration-and-visualization"
+id="toc-data-exploration-and-visualization">Data exploration and
+visualization</a></li>
+<li><a href="#differential-expression-analysis"
+id="toc-differential-expression-analysis">Differential Expression
+Analysis</a></li>
 </ul>
 </div>
 </nav>
@@ -201,6 +285,195 @@ href="https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc
 <p>The data for this tutorial comes from an the salivary glands of 12
 <em>N. pustulatus</em> beetles, half of which were starved from 5
 days.</p>
+<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+sampleID
+</th>
+<th style="text-align:left;">
+gender
+</th>
+<th style="text-align:left;">
+condition
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+FPF1
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPF2
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPF3
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPS1
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPS2
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FPS3
+</td>
+<td style="text-align:left;">
+female
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPF1
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPF2
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPF3
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+fed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPS1
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPS2
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPS3
+</td>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:left;">
+starved
+</td>
+</tr>
+</tbody>
+</table>
+<p>Quantification of the data was done with <code>Kallisto</code>. The
+ouput of <code>Kallisto</code> produces at least two files per sample:
+<code>abundances.tsv</code> and <code>abundances.h5</code>.</p>
+<p>This data can be imported directly using <code>tximport</code> as
+follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tximport)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sample_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> dir,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pattern =</span> <span class="st">&#39;.h5&#39;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">recursive =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sample_names <span class="ot">&lt;-</span> <span class="fu">basename</span>(sample_files) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove</span>(., <span class="st">&#39;.h5&#39;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>txi.kallisto <span class="ot">&lt;-</span> <span class="fu">tximport</span>(files, <span class="at">type =</span> <span class="st">&quot;kallisto&quot;</span>, <span class="at">txOut =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>However, due to the size of the <code>.h5</code> files today we will
+be using the dataframe that results of importing the data with
+<code>tximport</code>. Both of these datasets can be downloaded from the
+<a href="https://github.com/Coayala/deseq2_tutorial">tutorial GitHub
+repository</a> as follows.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>count_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/kallisto_counts.csv&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">&#39;transcriptID&#39;</span>)</span></code></pre></div>
+<pre><code>## Rows: 61290 Columns: 13
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (1): transcriptID
+## dbl (12): FPF1, FPF2, FPF3, FPS1, FPS2, FPS3, MPF1, MPF2, MPF3, MPS1, MPS2, MPS3
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv&#39;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Rows: 12 Columns: 3
 ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -208,21 +481,572 @@ days.</p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 12 × 3
-##    sampleID gender condition
-##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    
-##  1 FPF1     female fed      
-##  2 FPF2     female fed      
-##  3 FPF3     female fed      
-##  4 FPS1     female starved  
-##  5 FPS2     female starved  
-##  6 FPS3     female starved  
-##  7 MPF1     male   fed      
-##  8 MPF2     male   fed      
-##  9 MPF3     male   fed      
-## 10 MPS1     male   starved  
-## 11 MPS2     male   starved  
-## 12 MPS3     male   starved</code></pre>
+</div>
+</div>
+<div id="building-the-deseq2-object" class="section level1">
+<h1>Building the DESeq2 object</h1>
+<p>As most <code>Bioconductor</code> packages, <code>DESeq2</code> has
+its own custom class (the <code>DESeqDataSet</code> object) to ensure
+that all the data needed for the analysis is provided and its in the
+correct format.</p>
+<p>For example, data imported from other <code>Bioconductor</code>
+packages may be contained in a <code>SummarizedExperiment</code> object
+as it is commonly used to transfer data between different packages.</p>
+<p>In our case, our count data in in a dataframe. So in order to
+construct the <code>DESeqDataSet</code> object we can do the
+following:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> count_data,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">colData =</span> metadata,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">design=</span> <span class="sc">~</span> condition)</span></code></pre></div>
+<pre><code>## converting counts to integer mode</code></pre>
+<pre><code>## Warning in DESeqDataSet(se, design = design, ignoreRank): some variables in design formula are characters, converting
+## to factors</code></pre>
+</div>
+<div id="pre-filtering-the-data-set" class="section level1">
+<h1>Pre-filtering the data set</h1>
+<p>The count matrix can have many rows (transcripts/genes) for which no
+counts were found, or that contain too few reads to provide any
+meaningful information. These reads can be removed to increase the speed
+of the functions.</p>
+<div class="hl_box">
+<p>A <em>minimal filtering</em> approach will be to remove all the
+genes/transcripts that have zero counts (&lt; 1), however many other
+tutorials usually remove any gene/transcript with less than 10 counts as
+a <em>rule of thumb</em>.</p>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dds)</span></code></pre></div>
+<pre><code>## [1] 61290</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;=</span> <span class="dv">10</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> dds[keep,]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dds)</span></code></pre></div>
+<pre><code>## [1] 37758</code></pre>
+</div>
+<div id="setting-up-your-comparisons" class="section level1">
+<h1>Setting up your comparisons</h1>
+<p>One of the most common mistakes during differential expression
+analysis (DE analysis) is to get confused regarding which comparisons
+you are making. Is not the same comparing starved/fed than fed/starved.
+Being unaware of which treatment group is being used as “control” or as
+a “baseline” may result in mistakes interpreting the data.</p>
+<p>A good way of making sure that you are making the comparisons that
+you intend to, is to explicitly set up which treatment group is your
+baseline</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>condition <span class="ot">&lt;-</span> <span class="fu">relevel</span>(dds<span class="sc">$</span>condition, <span class="at">ref =</span> <span class="st">&#39;starved&#39;</span>)</span></code></pre></div>
+</div>
+<div id="data-exploration-and-visualization" class="section level1">
+<h1>Data exploration and visualization</h1>
+<p>Before performing DE analysis, it is always important to explore and
+visualize the data to see if there is evidence of differences among the
+samples, if the replicates track each other, identify potential
+replicates, or even determine if samples were swapped in the laboratory
+(more common than you will imagine).</p>
+<div id="library-size-effects" class="section level2">
+<h2>Library size effects</h2>
+<p>Due to sequencing bias or other technical reasons, there is always
+going to be differences in the number of reads that were generated for
+each sample. This in turn can artificially inflate the counts for a
+particular gene/transcript if raw data were used for the analysis.</p>
+<p>First lets plot the number of reads per sample</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">sample =</span> <span class="fu">colnames</span>(dds),</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">lib_size =</span> <span class="fu">colSums</span>(<span class="fu">assay</span>(dds, <span class="st">&quot;counts&quot;</span>)),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">condition =</span> dds<span class="sc">$</span>condition) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> lib_size,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Sample Name&#39;</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Library size&#39;</span>)</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
+<p>To deal with these differences <strong>size factors</strong> need to
+be calculated and then incorporated in the data to make the counts more
+comparable. In the case of <code>DESeq2</code>, the estimated size
+factors take into account not only differences in library size, but also
+in the composition of RNA. The reason is that during sequencing there is
+a limited number of reads that are generated, so highly expressed genes
+will consume large part of the reads, leaving other genes with even
+lower counts.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dds_e <span class="ot">&lt;-</span> <span class="fu">estimateSizeFactors</span>(dds)</span></code></pre></div>
+</div>
+<div id="normalization" class="section level2">
+<h2>Normalization</h2>
+<p>Because the idea of DE analysis is to compare the expression of a
+particular gene/transcript across several samples, the counts among
+those samples should be made comparable and not an effect of external
+factors. Several methods for normalizing RNA-seq data have been proposed
+but not all have passed the test of time.</p>
+<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+Table from: <a
+href="https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html"
+class="uri">https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html</a>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Normalization method
+</th>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:left;">
+Accounted factors
+</th>
+<th style="text-align:left;">
+Recommendations for use
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CPM&lt;a0&gt;(counts per million)
+</td>
+<td style="text-align:left;">
+counts scaled by total number of reads
+</td>
+<td style="text-align:left;">
+sequencing depth
+</td>
+<td style="text-align:left;">
+gene count comparisons between replicates of the same
+samplegroup;&lt;a0&gt;NOT for within sample comparisons or DE analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TPM&lt;a0&gt;(transcripts per kilobase million)
+</td>
+<td style="text-align:left;">
+counts per length of transcript (kb) per million reads mapped
+</td>
+<td style="text-align:left;">
+sequencing depth and gene length
+</td>
+<td style="text-align:left;">
+gene count comparisons within a sample or between samples of the same
+sample group;&lt;a0&gt;NOT for DE analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RPKM/FPKM&lt;a0&gt;(reads/fragments per kilobase of exon per million
+reads/fragments mapped)
+</td>
+<td style="text-align:left;">
+similar to TPM
+</td>
+<td style="text-align:left;">
+sequencing depth and gene length
+</td>
+<td style="text-align:left;">
+gene count comparisons between genes within a sample;&lt;a0&gt;NOT for
+between sample comparisons or DE analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DESeq2&lt;92&gt;s&lt;a0&gt;median of ratios&lt;a0&gt;[1]
+</td>
+<td style="text-align:left;">
+counts divided by sample-specific size factors determined by median
+ratio of gene counts relative to geometric mean per gene
+</td>
+<td style="text-align:left;">
+sequencing depth and RNA composition
+</td>
+<td style="text-align:left;">
+gene count comparisons between samples and for&lt;a0&gt;DE
+analysis;&lt;a0&gt;NOT for within sample comparisons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EdgeR&lt;92&gt;s&lt;a0&gt;trimmed mean of M values (TMM)&lt;a0&gt;[2]
+</td>
+<td style="text-align:left;">
+uses a weighted trimmed mean of the log expression ratios between
+samples
+</td>
+<td style="text-align:left;">
+sequencing depth, RNA composition, and gene length
+</td>
+<td style="text-align:left;">
+gene count comparisons between and within samples and for&lt;a0&gt;DE
+analysis
+</td>
+</tr>
+</tbody>
+</table>
+<p><code>DESeq2</code> offers two types of normalization methods for
+data exploration and visualization. For differential analysis
+<code>DESeq2</code> “takes into account the dependence of the variance
+of counts on the mean value during the dispersion estimation step”.</p>
+<p>The two normalization methods are: - Variance stabilizing
+transformation (<code>vst</code>) from the <code>vsn</code> package. -
+The <code>rlog</code> transformation which is part of the
+<code>DESeq2</code> package.</p>
+<p>The <code>vst</code> transformation works well for medium and large
+data sets as it is less sensitive to high count outliers, while the
+<code>rlog</code> transformation works best for small data sets.</p>
+<p>The idea behind the transformation is that most exploratory methods
+work best when the data is independent of its own mean. Something that
+do not happen in RNA-seq data.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vsn)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(dds))</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<p>Thus transforming is required.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vsd <span class="ot">&lt;-</span> <span class="fu">vst</span>(dds_e)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds_e)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(vsd))</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(rld))</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-11-2.png" width="576" /></p>
+</div>
+<div id="checking-transformed-read-counts" class="section level2">
+<h2>Checking transformed read counts</h2>
+<p>Observing the transformed read counts from different samples can
+allow us to check for outliers and to contrast how different they look
+after size correction and normalization.</p>
+<p>First we extract the samples from the <code>Bioconductor</code>
+object, and we put it in <strong><em>long format</em></strong> so it can
+be plot with <code>ggplot2</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>raw_counts <span class="ot">&lt;-</span> <span class="fu">assay</span>(dds) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&#39;transcriptID&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>transcriptID, <span class="at">names_to =</span> <span class="st">&#39;sampleID&#39;</span>, <span class="at">values_to =</span> <span class="st">&#39;counts&#39;</span>)</span></code></pre></div>
+<p>Because we want to see if there are differences between the
+treatments we can join our count data with the metadata.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>raw_counts <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata, <span class="at">by =</span> <span class="st">&#39;sampleID&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sampleID,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> counts,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> condition)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
+<p><strong><em>What if we want to see how count distribution looks for
+the size corrected and transformed data. Should I copy and modify the
+same lines from above with different count matrices?</em></strong></p>
+<div class="hl_box">
+<p><strong>Using the <code>map</code> family from <code>purrr</code> to
+avoid code duplication</strong></p>
+<p>Repeating the same lines of code can be cumbersome and led to errors
+if you change something in one of the instances and not the others.</p>
+<p>For this cases using the <code>map</code> family with a named or
+anonymous function is the answer.</p>
+</div>
+<p>To <strong>map</strong> a function you first need a list of the
+things you are going to map your function to. <em>Note that we are
+adding names to the list to help us later</em>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>count_mat_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Raw data&quot;</span> <span class="ot">=</span> <span class="fu">assay</span>(dds),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;Size corrected data&quot;</span> <span class="ot">=</span> <span class="fu">assay</span>(dds_e),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;VST data&quot;</span> <span class="ot">=</span> <span class="fu">assay</span>(vsd),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;Rlog data&quot;</span> <span class="ot">=</span> <span class="fu">assay</span>(rld))</span></code></pre></div>
+<p>we will use the list with an anonymous function. This will be the
+same code we used before, but replacing the names of the first line with
+a placeholder variable <code>mat</code> (for matrix).</p>
+<p>Because we are using a <strong>named list</strong> we can use
+<code>imap()</code> to access the names of the list. These list names
+will be used as the plot titles.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>count_plots <span class="ot">&lt;-</span> <span class="fu">imap</span>(count_mat_list, <span class="cf">function</span>(mat, list_id){</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  raw_counts <span class="ot">&lt;-</span> mat <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&#39;transcriptID&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">!</span>transcriptID, <span class="at">names_to =</span> <span class="st">&#39;sampleID&#39;</span>, <span class="at">values_to =</span> <span class="st">&#39;counts&#39;</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(list_id)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  raw_counts <span class="sc">%&gt;%</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(metadata, <span class="at">by =</span> <span class="st">&#39;sampleID&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sampleID,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> counts,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> condition)) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> list_id)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<pre><code>## [1] &quot;Raw data&quot;
+## [1] &quot;Size corrected data&quot;
+## [1] &quot;VST data&quot;
+## [1] &quot;Rlog data&quot;</code></pre>
+<p>The <code>count_plots</code> will be a list of plots. This can be
+easily plot with <code>ggarrange</code> from <code>ggpubr</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> count_plots)</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-16-1.png" width="576" /></p>
+</div>
+<div id="sample-distances" class="section level2">
+<h2>Sample distances</h2>
+<p>This step of the exploratory analysis can help to assess the
+similarity between the samples and to identify potential outliers. Any
+pattern observed here must be contrasted with the hypothesis for the
+experiment.</p>
+<div class="hl_box">
+<p>The size-corrected, transformed data will be used in these
+exploratory analysis</p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>sample_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(vsd)))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>( <span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>)) )(<span class="dv">255</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>annotation <span class="ot">&lt;-</span> <span class="fu">column_to_rownames</span>(metadata, <span class="at">var =</span> <span class="st">&#39;sampleID&#39;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">as.matrix</span>(sample_dist),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> colors,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_row =</span> annotation,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation)</span></code></pre></div>
+</div>
+<div id="pca" class="section level2">
+<h2>PCA</h2>
+<p>Sample ordination using principal component analysis (PCA) can also
+be used to visualize the similarities between the samples.
+<code>DESeq2</code> even provides a function, <code>plotPCA()</code> to
+directly plot the data</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(vsd, <span class="at">intgroup =</span> <span class="st">&#39;condition&#39;</span>) </span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
+<div class="hl_box">
+<p>The option <code>returnData = TRUE</code> can be added to the
+<code>plotPCA()</code> function to make it return a table with PCA data
+instead of a plot. This can be useful to create your own plot from
+scratch using <code>ggplot2()</code></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pca_data <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(vsd, <span class="at">intgroup =</span> <span class="st">&#39;condition&#39;</span>, <span class="at">returnData =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pca_data</span></code></pre></div>
+<pre><code>##             PC1        PC2   group condition name
+## FPF1 -12.951373  12.528762     fed       fed FPF1
+## FPF2 -11.938540  14.416869     fed       fed FPF2
+## FPF3 -10.887364  11.009098     fed       fed FPF3
+## FPS1  20.092258   5.301414 starved   starved FPS1
+## FPS2  20.593664   6.698384 starved   starved FPS2
+## FPS3  17.848281   5.523023 starved   starved FPS3
+## MPF1 -35.119324 -16.613552     fed       fed MPF1
+## MPF2  -6.280128   8.943522     fed       fed MPF2
+## MPF3  -2.907811   8.463120     fed       fed MPF3
+## MPS1   4.964393 -29.154637 starved   starved MPS1
+## MPS2  10.619820 -18.257666 starved   starved MPS2
+## MPS3   5.966123  -8.858338 starved   starved MPS3</code></pre>
+</div>
+</div>
+</div>
+<div id="differential-expression-analysis" class="section level1">
+<h1>Differential Expression Analysis</h1>
+<div id="running-the-pipeline" class="section level2">
+<h2>Running the pipeline</h2>
+<p>The whole differential analysis pipeline can be run with the
+<code>DESeq()</code> function. It performs a default analysis through
+the steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Estimation of size factors: estimateSizeFactors</p></li>
+<li><p>Estimation of dispersion: estimateDispersions</p></li>
+<li><p>Negative Binomial GLM fitting and Wald statistics:
+nbinomWaldTest</p></li>
+</ol>
+<p>As previously mentioned it is recommended to run the differential
+analysis on the raw counts, so we will use the <code>dds</code> object
+that we created before.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span></code></pre></div>
+<pre><code>## estimating size factors</code></pre>
+<pre><code>## estimating dispersions</code></pre>
+<pre><code>## gene-wise dispersion estimates</code></pre>
+<pre><code>## mean-dispersion relationship</code></pre>
+<pre><code>## final dispersion estimates</code></pre>
+<pre><code>## fitting model and testing</code></pre>
+</div>
+<div id="extracting-the-results" class="section level2">
+<h2>Extracting the results</h2>
+<p>The function <code>results()</code> will extract the estimated
+log2-fold changes and the p values for the last variable specified in
+the design as well as the first and last level on that variable.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
+<pre><code>## log2 fold change (MLE): condition fed vs starved 
+## Wald test p-value: condition fed vs starved 
+## DataFrame with 6 rows and 6 columns
+##                       baseMean log2FoldChange     lfcSE      stat      pvalue       padj
+##                      &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt;  &lt;numeric&gt;
+## TRINITY_DN2_c0_g1_i1  583.8981       0.226449  0.149112  1.518655 1.28849e-01 0.52619925
+## TRINITY_DN2_c0_g1_i2   81.9238       0.393140  0.318401  1.234733 2.16930e-01 0.64878291
+## TRINITY_DN2_c0_g1_i3  154.2569       0.218496  0.278978  0.783201 4.33509e-01 0.82121096
+## TRINITY_DN8_c0_g1_i4   88.9504       1.134240  0.384357  2.951003 3.16744e-03 0.07399317
+## TRINITY_DN8_c0_g1_i5  167.1934       0.810037  0.198694  4.076805 4.56588e-05 0.00360229
+## TRINITY_DN8_c0_g1_i6    5.0825      -0.650745  1.233516 -0.527553 5.97809e-01 0.89601746</code></pre>
+<div class="hl_box">
+<p>Since we only used one variable in the design
+(<code>design = ~ condition</code>), and
+<strong><em>condition</em></strong> only has two levels:
+<em>starved</em> and <em>fed</em>, using the function
+<code>results()</code> without other argument is enough.</p>
+<p>If multiple variables were used for the design or more levels were
+present in the metadata, we can access those like this:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&#39;condition&#39;</span>, <span class="st">&#39;fed&#39;</span>, <span class="st">&#39;starved&#39;</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
+<pre><code>## log2 fold change (MLE): condition fed vs starved 
+## Wald test p-value: condition fed vs starved 
+## DataFrame with 6 rows and 6 columns
+##                       baseMean log2FoldChange     lfcSE      stat      pvalue       padj
+##                      &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt;  &lt;numeric&gt;
+## TRINITY_DN2_c0_g1_i1  583.8981       0.226449  0.149112  1.518655 1.28849e-01 0.52619925
+## TRINITY_DN2_c0_g1_i2   81.9238       0.393140  0.318401  1.234733 2.16930e-01 0.64878291
+## TRINITY_DN2_c0_g1_i3  154.2569       0.218496  0.278978  0.783201 4.33509e-01 0.82121096
+## TRINITY_DN8_c0_g1_i4   88.9504       1.134240  0.384357  2.951003 3.16744e-03 0.07399317
+## TRINITY_DN8_c0_g1_i5  167.1934       0.810037  0.198694  4.076805 4.56588e-05 0.00360229
+## TRINITY_DN8_c0_g1_i6    5.0825      -0.650745  1.233516 -0.527553 5.97809e-01 0.89601746</code></pre>
+</div>
+<p>A quick summary of the results showing the number of differential
+expressed genes as well as the statistical significance can be seen with
+the <code>summary</code> function.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
+<pre><code>## 
+## out of 37758 with nonzero total read count
+## adjusted p-value &lt; 0.1
+## LFC &gt; 0 (up)       : 732, 1.9%
+## LFC &lt; 0 (down)     : 603, 1.6%
+## outliers [1]       : 417, 1.1%
+## low counts [2]     : 11621, 31%
+## (mean count &lt; 3)
+## [1] see &#39;cooksCutoff&#39; argument of ?results
+## [2] see &#39;independentFiltering&#39; argument of ?results</code></pre>
+<div id="filtering-the-results" class="section level3">
+<h3>Filtering the results</h3>
+<p>By default <code>DESeq2</code> will return the results for all the
+genes/transcripts in the reference, and the <code>summary</code>
+function will count those that have an <em>adjusted p value</em> of
+0.1.</p>
+<div class="hl_box">
+<p><strong>Multiple testing</strong></p>
+<p>When analyzing high-throughput data we have to take care of not using
+<em>p</em> values directly as evidence to reject the null hypothesis.
+The reason is that we are performing thousands of comparisons for the
+same data set.</p>
+<p>For this data set we are comparing 37758 transcripts for this
+example. By <em>p</em> value definition this means that even if there
+were not differential expression at all we may find 1888 “differentially
+expressed” transcripts just by chance.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 4317</code></pre>
+<p>Looking at our unadjusted <em>p</em> values we can see that there are
+4317 transcripts that seem to be differentially expressed. That means
+that up to 1888/4317 = 43% of the transcripts may be false positives
+(just by chance).</p>
+<p>Thus we need to adjust for false positives. In <code>DESeq2</code>
+this is done using the Benjamini-Hochberg (BH) adjustment (Benjamini and
+Hochberg 1995). This method calculates for each gene an adjusted
+<em>p</em> value that answers the following question: if one called
+significant all genes with an adjusted p value less than or equal to
+this gene’s adjusted p value threshold, what would be the fraction of
+false positives (the <em>false discovery rate</em>, FDR) among them.
+This value is stored in the <code>padj</code> column of the
+<code>results</code> object,</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 861</code></pre>
+</div>
+<p>The adjusted <em>p</em> value and the log2-fold change (lfc)
+thresholds can be changed in the <code>result</code> object to be
+visualized with <code>summary</code>.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>res0<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">alpha =</span> <span class="fl">0.05</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res0<span class="fl">.5</span>)</span></code></pre></div>
+<pre><code>## 
+## out of 37758 with nonzero total read count
+## adjusted p-value &lt; 0.05
+## LFC &gt; 0 (up)       : 523, 1.4%
+## LFC &lt; 0 (down)     : 374, 0.99%
+## outliers [1]       : 417, 1.1%
+## low counts [2]     : 13767, 36%
+## (mean count &lt; 4)
+## [1] see &#39;cooksCutoff&#39; argument of ?results
+## [2] see &#39;independentFiltering&#39; argument of ?results</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>res0<span class="fl">.5</span>_2lfc <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">lfcThreshold =</span> <span class="dv">2</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res0<span class="fl">.5</span>_2lfc)</span></code></pre></div>
+<pre><code>## 
+## out of 37758 with nonzero total read count
+## adjusted p-value &lt; 0.05
+## LFC &gt; 2.00 (up)    : 19, 0.05%
+## LFC &lt; -2.00 (down) : 7, 0.019%
+## outliers [1]       : 417, 1.1%
+## low counts [2]     : 13054, 35%
+## (mean count &lt; 3)
+## [1] see &#39;cooksCutoff&#39; argument of ?results
+## [2] see &#39;independentFiltering&#39; argument of ?results</code></pre>
+<p>We can also subset the results to only include transcripts that are
+significantly differentially expressed.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>res_sig <span class="ot">&lt;-</span> <span class="fu">subset</span>(res, padj <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="plotting-de-results" class="section level2">
+<h2>Plotting DE results</h2>
+<div id="counts-plot" class="section level3">
+<h3>Counts plot</h3>
+<p>This is a plot to quickly visualize the expression of a particular
+gene of interest. For example to visualize the gene with the largest
+log2-fold change</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>top_lfc_gene <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_sig)[<span class="fu">which.max</span>(res_sig<span class="sc">$</span>log2FoldChange)]</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> top_lfc_gene, <span class="at">intgroup =</span> <span class="st">&#39;condition&#39;</span>)</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-28-1.png" width="576" /></p>
+<div class="hl_box">
+<p>Similar to the PCA plot, <code>plotCounts</code> can be used to
+retrieve only the data to plot later with <code>ggplot2</code>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>top_gene_counts <span class="ot">&lt;-</span> <span class="fu">plotCounts</span>(dds, </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">gene =</span> top_lfc_gene, </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">&#39;condition&#39;</span>, <span class="st">&#39;gender&#39;</span>), </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">returnData =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_gene_counts,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> condition,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> count,</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-29-1.png" width="576" /></p>
+</div>
+</div>
+<div id="gene-clustering" class="section level3">
+<h3>Gene clustering</h3>
+<p>This type of plot is make to have an overall visualization of the
+pattern of differential expression between the samples. The option
+<code>scale='row'</code> is used to transform the data using a z-score
+for better visualization.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sig_mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(vsd)[<span class="fu">rownames</span>(res_sig),]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(sig_mat,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">scale =</span> <span class="st">&#39;row&#39;</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation)</span></code></pre></div>
+</div>
+<div id="volcano-plot" class="section level3">
+<h3>Volcano plot</h3>
+<p>Volcano plots are a common way of visualize differential expression
+data. Sadly, <code>DESeq2</code> does not provide a function to plot it
+directly. However, we can build our own volcano plot with all what we
+have learned so far.</p>
+<p>First lets set threshold for our plot</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>lfc_t <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>padj_t <span class="ot">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
+<p>Extract data for volcano and determine “significant” genes based on
+the thresholds</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>volcano_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">significant =</span> <span class="fu">ifelse</span>((<span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;</span> lfc_t <span class="sc">&amp;</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span><span class="fu">log10</span>(padj) <span class="sc">&gt;</span> <span class="sc">-</span><span class="fu">log10</span>(padj_t)), <span class="st">&#39;yes&#39;</span>, <span class="st">&#39;no&#39;</span>))</span></code></pre></div>
+<p>Plot the volcano with <code>ggplot2</code></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(volcano_data,</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> log2FoldChange,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(padj),</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> significant)) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;no&#39;</span> <span class="ot">=</span> <span class="st">&#39;black&#39;</span>, <span class="st">&#39;yes&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>))  <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(padj_t), <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(lfc_t, <span class="sc">-</span>lfc_t), <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 12038 rows containing missing values (geom_point).</code></pre>
+<p><img src="de_files/figure-html/unnamed-chunk-33-1.png" width="576" /></p>
+</div>
 </div>
 </div>
 </div>

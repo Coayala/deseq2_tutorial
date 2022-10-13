@@ -17,7 +17,7 @@ library(tidyverse)
 
 kableExtra::kbl(
   read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv')
-  ) %>% kableExtra::kable_material(lightable_options = 'stripped')
+  ) %>% kableExtra::kable_material(lightable_options = 'striped')
   
 ```
 
@@ -103,10 +103,369 @@ dds$condition <- relevel(dds$condition, ref = 'starved')
 
 # Data exploration and visualization
 
-Before performing DE analysis, it is always important to explore and visualize the data to see if there is evidence of differences among the samples, if the replicates track each other and to identify potential replicates.
+Before performing DE analysis, it is always important to explore and visualize the data to see if there is evidence of differences among the samples, if the replicates track each other, identify potential replicates, or even determine if samples were swapped in the laboratory (more common than you will imagine).
+
+## Library size effects
+
+Due to sequencing bias or other technical reasons, there is always going to be differences in the number of reads that were generated for each sample. This in turn can artificially inflate the counts for a particular gene/transcript if raw data were used for the analysis.
+
+First lets plot the number of reads per sample
+
+```{r}
+data.frame(sample = colnames(dds),
+           lib_size = colSums(assay(dds, "counts")),
+           condition = dds$condition) %>% 
+  ggplot(aes(x = sample,
+             y = lib_size,
+             fill = condition)) +
+  geom_col() +
+  labs(x = 'Sample Name',
+       y = 'Library size')
+```
+
+To deal with these differences **size factors** need to be calculated and then incorporated in the data to make the counts more comparable. In the case of `DESeq2`, the estimated size factors take into account not only differences in library size, but also in the composition of RNA. The reason is that during sequencing there is a limited number of reads that are generated, so highly expressed genes will consume large part of the reads, leaving other genes with even lower counts.
+
+```{r}
+dds_e <- estimateSizeFactors(dds)
+```
 
 ## Normalization
 
-Because the idea of DE analysis is to compare the expression of a particular gene/transcript across several samples, the counts among those samples should be made comparable and not an effect of external factors (e.g., sequencing bias). Several methods for normalizing RNA-seq data have been proposed but not all have passed the test of time.
+Because the idea of DE analysis is to compare the expression of a particular gene/transcript across several samples, the counts among those samples should be made comparable and not an effect of external factors. Several methods for normalizing RNA-seq data have been proposed but not all have passed the test of time.
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+
+kableExtra::kbl(
+  read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/norm_methods.csv'),
+  caption = 'Table from: https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html'
+  ) %>% kableExtra::kable_material(lightable_options = 'striped')
+```
+
+`DESeq2` offers two types of normalization methods for data exploration and visualization. For differential analysis `DESeq2` "takes into account the dependence of the variance of counts on the mean value during the dispersion estimation step".
+
+The two normalization methods are:
+- Variance stabilizing transformation (`vst`) from the `vsn` package.
+- The `rlog` transformation which is part of the `DESeq2` package.
+
+The `vst` transformation works well for medium and large data sets as it is less sensitive to high count outliers, while the `rlog` transformation works best for small data sets.
+
+The idea behind the transformation is that most exploratory methods work best when the data is independent of its own mean. Something that do not happen in RNA-seq data.
+
+```{r}
+library(vsn)
+meanSdPlot(assay(dds))
+```
+
+Thus transforming is required.
+
+```{r}
+vsd <- vst(dds_e)
+rld <- rlog(dds_e)
+
+meanSdPlot(assay(vsd))
+meanSdPlot(assay(rld))
+```
+
+## Checking transformed read counts
+
+Observing the transformed read counts from different samples can allow us to check for outliers and to contrast how different they look after size correction and normalization.
+
+First we extract the samples from the `Bioconductor` object, and we put it in ***long format*** so it can be plot with `ggplot2`.
+
+```{r}
+raw_counts <- assay(dds) %>% 
+  data.frame() %>% 
+  rownames_to_column(var = 'transcriptID') %>% 
+  pivot_longer(!transcriptID, names_to = 'sampleID', values_to = 'counts')
+  
+```
+
+Because we want to see if there are differences between the treatments we can join our count data with the metadata.
+
+```{r}
+raw_counts %>% 
+  left_join(metadata, by = 'sampleID') %>% 
+  ggplot(aes(x = sampleID,
+             y = counts,
+             color = condition)) +
+  geom_boxplot()
+```
+
+***What if we want to see how count distribution looks for the size corrected and transformed data. Should I copy and modify the same lines from above with different count matrices?***
+
+:::: {.hl_box}
+
+**Using the `map` family from `purrr` to avoid code duplication**
+
+Repeating the same lines of code can be cumbersome and led to errors if you change something in one of the instances and not the others.
+
+For this cases using the `map` family with a named or anonymous function is the answer.
+
+::::
+
+
+To **map** a function you first need a list of the things you are going to map your function to.
+*Note that we are adding names to the list to help us later*.
+
+```{r}
+library(purrr)
+count_mat_list <- list("Raw data" = assay(dds),
+                       "Size corrected data" = assay(dds_e),
+                       "VST data" = assay(vsd),
+                       "Rlog data" = assay(rld))
+```
+
+we will use the list with an anonymous function. This will be the same code we used before, but replacing the names of the first line with a placeholder variable `mat` (for matrix).
+
+Because we are using a **named list** we can use `imap()` to access the names of the list. These list names will be used as the plot titles.
+
+```{r}
+count_plots <- imap(count_mat_list, function(mat, list_id){
+  raw_counts <- mat %>% 
+    data.frame() %>% 
+    rownames_to_column(var = 'transcriptID') %>% 
+    pivot_longer(!transcriptID, names_to = 'sampleID', values_to = 'counts')
+  
+  print(list_id)
+  
+  raw_counts %>% 
+    left_join(metadata, by = 'sampleID') %>% 
+    ggplot(aes(x = sampleID,
+               y = counts,
+               color = condition)) +
+    geom_boxplot() +
+    labs(title = list_id)
+})
+```
+
+The `count_plots` will be a list of plots. This can be easily plot with `ggarrange` from `ggpubr`.
+
+```{r}
+library(ggpubr)
+
+ggarrange(plotlist = count_plots)
+```
+
+## Sample distances
+
+This step of the exploratory analysis can help to assess the similarity between the samples and to identify potential outliers. Any pattern observed here must be contrasted with the hypothesis for the experiment.
+
+::: {.hl_box}
+
+The size-corrected, transformed data will be used in these exploratory analysis
+
+::::
+
+```{r}
+library(pheatmap)
+library(RColorBrewer)
+
+sample_dist <- dist(t(assay(vsd)))
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+
+annotation <- column_to_rownames(metadata, var = 'sampleID')
+
+pheatmap(as.matrix(sample_dist),
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         color = colors,
+         annotation_row = annotation,
+         annotation_col = annotation)
+
+```
+
+## PCA
+
+Sample ordination using principal component analysis (PCA) can also be used to visualize the similarities between the samples. `DESeq2` even provides a function, `plotPCA()` to directly plot the data
+
+```{r}
+plotPCA(vsd, intgroup = 'condition') 
+```
+
+:::: {.hl_box}
+
+The option `returnData = TRUE` can be added to the `plotPCA()` function to make it return a table with PCA data instead of a plot. This can be useful to create your own plot from scratch using `ggplot2()`
+
+```{r}
+pca_data <- plotPCA(vsd, intgroup = 'condition', returnData = TRUE)
+pca_data
+```
+
+::::
+
+# Differential Expression Analysis
+
+## Running the pipeline
+
+The whole differential analysis pipeline can be run with the `DESeq()` function. It performs a default analysis through the steps:
+
+1. Estimation of size factors: estimateSizeFactors
+
+2. Estimation of dispersion: estimateDispersions
+
+3. Negative Binomial GLM fitting and Wald statistics: nbinomWaldTest
+
+As previously mentioned it is recommended to run the differential analysis on the raw counts, so we will use the `dds` object that we created before.
+
+```{r}
+dds <- DESeq(dds)
+```
+
+## Extracting the results
+
+The function `results()` will extract the estimated log2-fold changes and the p values for the last variable specified in the design as well as the first and last level on that variable.
+
+```{r}
+res <- results(dds)
+head(res)
+```
+
+:::: {.hl_box}
+
+Since we only used one variable in the design (`design = ~ condition`), and ***condition*** only has two levels: *starved* and *fed*, using the function `results()` without other argument is enough.
+
+If multiple variables were used for the design or more levels were present in the metadata, we can access those like this:
+
+```{r}
+res <- results(dds, contrast = c('condition', 'fed', 'starved'))
+head(res)
+```
+
+::::
+
+A quick summary of the results showing the number of differential expressed genes as well as the statistical significance can be seen with the `summary` function.
+
+```{r}
+summary(res)
+```
+
+### Filtering the results
+
+By default `DESeq2` will return the results for all the genes/transcripts in the reference, and the `summary` function will count those that have an *adjusted p value* of 0.1.
+
+:::: {.hl_box}
+
+**Multiple testing**
+
+When analyzing high-throughput data we have to take care of not using *p* values directly as evidence to reject the null hypothesis. The reason is that we are performing thousands of comparisons for the same data set.
+
+For this data set we are comparing 37758 transcripts for this example. By *p* value definition this means that even if there were not differential expression at all we may find 1888 "differentially expressed" transcripts just by chance.
+
+```{r}
+sum(res$pvalue < 0.05, na.rm = TRUE)
+```
+
+Looking at our unadjusted *p* values we can see that there are 4317 transcripts that seem to be differentially expressed. That means that up to 1888/4317 = 43% of the transcripts may be false positives (just by chance).
+
+Thus we need to adjust for false positives. In `DESeq2` this is done using the Benjamini-Hochberg (BH) adjustment (Benjamini and Hochberg 1995). This method calculates for each gene an adjusted *p* value that answers the following question: if one called significant all genes with an adjusted p value less than or equal to this gene’s adjusted p value threshold, what would be the fraction of false positives (the *false discovery rate*, FDR) among them. This value is stored in the `padj` column of the `results` object,
+
+```{r}
+sum(res$padj < 0.05, na.rm = TRUE)
+```
+
+::::
+
+The adjusted *p* value and the log2-fold change (lfc) thresholds can be changed in the `result` object to be visualized with `summary`.
+
+```{r}
+res0.5 <- results(dds, alpha = 0.05)
+summary(res0.5)
+
+res0.5_2lfc <- results(dds, alpha = 0.05, lfcThreshold = 2)
+summary(res0.5_2lfc)
+```
+
+We can also subset the results to only include transcripts that are significantly differentially expressed.
+
+```{r}
+res_sig <- subset(res, padj < 0.05)
+```
+
+## Plotting DE results
+
+### Counts plot
+
+This is a plot to quickly visualize the expression of a particular gene of interest. For example to visualize the gene with the largest log2-fold change
+
+```{r}
+top_lfc_gene <- rownames(res_sig)[which.max(res_sig$log2FoldChange)]
+plotCounts(dds, gene = top_lfc_gene, intgroup = 'condition')
+```
+
+:::: {.hl_box}
+
+Similar to the PCA plot, `plotCounts` can be used to retrieve only the data to plot later with `ggplot2`.
+
+```{r}
+top_gene_counts <- plotCounts(dds, 
+                              gene = top_lfc_gene, 
+                              intgroup = c('condition', 'gender'), 
+                              returnData = TRUE)
+
+ggplot(top_gene_counts,
+       aes(x = condition,
+           y = count,
+           color = gender)) +
+  geom_jitter(size = 3,
+              width = 0.1)
+```
+
+::::
+
+### Gene clustering
+
+This type of plot is make to have an overall visualization of the pattern of differential expression between the samples. The option `scale='row'` is used to transform the data using a z-score for better visualization.
+
+```{r}
+sig_mat <- assay(vsd)[rownames(res_sig),]
+
+pheatmap(sig_mat,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         scale = 'row',
+         show_rownames = FALSE,
+         annotation_col = annotation)
+```
+
+### Volcano plot
+
+Volcano plots are a common way of visualize differential expression data. Sadly, `DESeq2` does not provide a function to plot it directly. However, we can build our own volcano plot with all what we have learned so far.
+
+First lets set threshold for our plot
+
+```{r}
+lfc_t <- 2
+padj_t <- 0.05
+```
+
+Extract data for volcano and determine "significant" genes based on the thresholds
+
+```{r}
+volcano_data <- data.frame(res) %>% 
+  mutate(significant = ifelse((abs(log2FoldChange) > lfc_t &
+                                 -log10(padj) > -log10(padj_t)), 'yes', 'no'))
+```
+
+Plot the volcano with `ggplot2`
+
+```{r}
+
+ggplot(volcano_data,
+       aes(x = log2FoldChange,
+           y = -log10(padj),
+           color = significant)) +
+  geom_point(show.legend = FALSE) +
+  scale_color_manual(values = c('no' = 'black', 'yes' = 'red'))  +
+  geom_hline(yintercept = -log10(padj_t), linetype = 'dashed') +
+  geom_vline(xintercept = c(lfc_t, -lfc_t), linetype = 'dashed') +
+  theme_bw()
+
+```
+
+
+
+
+
+
 
 

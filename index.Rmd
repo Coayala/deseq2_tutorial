@@ -14,3 +14,38 @@ This tutorial is based on:
 Data used for this tutorial comes from the paper:
 - Effect of food source availability in the salivary gland transcriptome of the unique burying beetle *Nicrophorus pustulatus* (Coleoptera: Silphidae) (https://doi.org/10.1371/journal.pone.0255660).
 
+# Packages to be used
+
+## From `Bioconductor`
+
+- `DESeq2`
+- `vsn`
+
+```{r eval=FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install(c("DESeq2", "vsn"))
+```
+
+
+## From CRAN
+
+- `pheatmap`
+- `ggpubr`
+- `RColorBrewer`
+- from the `tidyverse` collection
+  - `ggplot2`
+  - `magrittr`
+  - `dplyr`
+  - `tidyr`
+  - `purrr`
+  - `readr`
+
+```{r eval=FALSE}
+install.packages(c('pheatmap', 'ggpubr', 'RColorBrewer',
+                   'ggplot2', 'magrittr', 'dplyr', 'tidyr',
+                   'purrr', 'readr'))
+```
+
+
