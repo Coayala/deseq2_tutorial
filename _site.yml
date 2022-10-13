@@ -1,0 +1,16 @@
+name: "deseq2-tutorial"
+output_dir: "docs"
+navbar:
+  title: "DESeq2 Tutorial"
+  left:
+    - text: 'Home'
+      icon: fa-home
+      href: index.html
+    - text: "Quantifying data"
+      href: input.html
+    - text: "Differential expression analysis"
+      href: de.html
+output: 
+  rmdformats::material:
+    cards: false
+    css: css/styles.css

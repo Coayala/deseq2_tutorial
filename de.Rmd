@@ -1,0 +1,20 @@
+---
+title: "Differential expression analysis"
+---
+
+# Importing data
+
+Several tools exist for importing RNA-seq "feature counts" generated from different software into the packages of `Bioconductor`. 
+
+One of these tools is the `tximport` package which can import and summarize transcript-level abundance estimates for transcript- and gene-level analysis. More information about using `tximport` can be found [here](https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/tximport.html).
+
+## Tutorial data
+
+The data for this tutorial comes from an the salivary glands of 12 *N. pustulatus* beetles, half of which were starved from 5 days. 
+
+```{r include=FALSE, warning=FALSE}
+library(readr)
+read_csv('data/metadata.csv')
+
+```
+

@@ -1,0 +1,13 @@
+sampleID,gender,condition
+FPF1,female,fed
+FPF2,female,fed
+FPF3,female,fed
+FPS1,female,starved
+FPS2,female,starved
+FPS3,female,starved
+MPF1,male,fed
+MPF2,male,fed
+MPF3,male,fed
+MPS1,male,starved
+MPS2,male,starved
+MPS3,male,starved
