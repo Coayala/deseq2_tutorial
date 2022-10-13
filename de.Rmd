@@ -57,7 +57,7 @@ metadata <- read_csv(
 
 ```
 
-# Entering the data into DESeq2
+# Building the DESeq2 object
 
 As most `Bioconductor` packages, `DESeq2` has its own custom class (the `DESeqDataSet` object) to ensure that all the data needed for the analysis is provided and its in the correct format.
 
@@ -74,5 +74,39 @@ dds <- DESeqDataSetFromMatrix(countData = count_data,
 ```
 
 
+# Pre-filtering the data set
+
+The count matrix can have many rows (transcripts/genes) for which no counts were found, or that contain too few reads to provide any meaningful information. These reads can be removed to increase the speed of the functions.
+
+:::: {.hl_box}
+
+A *minimal filtering* approach will be to remove all the genes/transcripts that have zero counts (< 1), however many other tutorials usually remove any gene/transcript with less than 10 counts as a *rule of thumb*.
+
+::::
+
+```{r}
+nrow(dds)
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+nrow(dds)
+```
+
+# Setting up your comparisons
+
+One of the most common mistakes during differential expression analysis (DE analysis) is to get confused regarding which comparisons you are making. Is not the same comparing starved/fed than fed/starved. Being unaware of which treatment group is being used as "control" or as a "baseline" may result in mistakes interpreting the data.
+
+A good way of making sure that you are making the comparisons that you intend to, is to explicitly set up which treatment group is your baseline
+
+```{r}
+dds$condition <- relevel(dds$condition, ref = 'starved')
+```
+
+# Data exploration and visualization
+
+Before performing DE analysis, it is always important to explore and visualize the data to see if there is evidence of differences among the samples, if the replicates track each other and to identify potential replicates.
+
+## Normalization
+
+Because the idea of DE analysis is to compare the expression of a particular gene/transcript across several samples, the counts among those samples should be made comparable and not an effect of external factors (e.g., sequencing bias). Several methods for normalizing RNA-seq data have been proposed but not all have passed the test of time.
 
 
