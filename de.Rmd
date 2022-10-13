@@ -17,7 +17,7 @@ library(tidyverse)
 
 read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv') %>% 
   flextable::flextable(theme_fun = flextable::theme_booktabs())
-  
+
 ```
 
 Quantification of the data was done with `Kallisto`. The ouput of `Kallisto` produces at least two files per sample: `abundances.tsv` and `abundances.h5`.
@@ -47,12 +47,12 @@ library(dplyr)
 
 count_data <- read_csv(
   'https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/kallisto_counts.csv'
-  ) %>% 
+) %>% 
   column_to_rownames(var = 'transcriptID')
 
 metadata <- read_csv(
   'https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv'
-  )
+)
 
 ```
 
@@ -68,8 +68,8 @@ In our case, our count data in in a dataframe. So in order to construct the `DES
 library(DESeq2)
 
 dds <- DESeqDataSetFromMatrix(countData = count_data,
-                                       colData = metadata,
-                                       design= ~ condition)
+                              colData = metadata,
+                              design= ~ condition)
 ```
 
 
@@ -173,7 +173,7 @@ raw_counts <- assay(dds) %>%
   data.frame() %>% 
   rownames_to_column(var = 'transcriptID') %>% 
   pivot_longer(!transcriptID, names_to = 'sampleID', values_to = 'counts')
-  
+
 ```
 
 Because we want to see if there are differences between the treatments we can join our count data with the metadata.
@@ -261,12 +261,14 @@ colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 
 annotation <- column_to_rownames(metadata, var = 'sampleID')
 
-pheatmap(as.matrix(sample_dist),
-         cluster_rows = TRUE,
-         cluster_cols = TRUE,
-         color = colors,
-         annotation_row = annotation,
-         annotation_col = annotation)
+ht1 <- pheatmap(as.matrix(sample_dist),
+                cluster_rows = TRUE,
+                cluster_cols = TRUE,
+                color = colors,
+                annotation_row = annotation,
+                annotation_col = annotation)
+
+ht1
 
 ```
 
@@ -415,12 +417,14 @@ This type of plot is make to have an overall visualization of the pattern of dif
 ```{r}
 sig_mat <- assay(vsd)[rownames(res_sig),]
 
-pheatmap(sig_mat,
-         cluster_rows = TRUE,
-         cluster_cols = TRUE,
-         scale = 'row',
-         show_rownames = FALSE,
-         annotation_col = annotation)
+ht2 <- pheatmap(sig_mat,
+                cluster_rows = TRUE,
+                cluster_cols = TRUE,
+                scale = 'row',
+                show_rownames = FALSE,
+                annotation_col = annotation)
+
+ht2
 ```
 
 ### Volcano plot

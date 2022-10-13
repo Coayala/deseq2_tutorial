@@ -26,8 +26,8 @@
         <script src="site_libs/bootstrap_material-0.1/ripples.min.js"></script>
         <link href="site_libs/material-0.1/material.css" rel="stylesheet" />
         <script src="site_libs/material-0.1/material.js"></script>
-        <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-        <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+        <link href="site_libs/tabwid-1.1.0/tabwid.css" rel="stylesheet" />
+        <link href="site_libs/tabwid-1.1.0/scrool.css" rel="stylesheet" />
         <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
         <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
     
@@ -285,155 +285,56 @@ href="https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc
 <p>The data for this tutorial comes from an the salivary glands of 12
 <em>N. pustulatus</em> beetles, half of which were starved from 5
 days.</p>
-<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-sampleID
-</th>
-<th style="text-align:left;">
-gender
-</th>
-<th style="text-align:left;">
-condition
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-FPF1
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FPF2
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FPF3
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FPS1
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FPS2
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FPS3
-</td>
-<td style="text-align:left;">
-female
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPF1
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPF2
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPF3
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-fed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPS1
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPS2
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPS3
-</td>
-<td style="text-align:left;">
-male
-</td>
-<td style="text-align:left;">
-starved
-</td>
-</tr>
-</tbody>
-</table>
+<template id="35153314-d8a1-446e-b3de-abcb552cb8df"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-70f02a1c{}.cl-70e30e5e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-70ea7b26{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-70ea957a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-70ea9584{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-70ea9585{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-70f02a1c'><thead><tr style="overflow-wrap:break-word;"><td class="cl-70ea957a"><p class="cl-70ea7b26"><span class="cl-70e30e5e">sampleID</span></p></td><td class="cl-70ea957a"><p class="cl-70ea7b26"><span class="cl-70e30e5e">gender</span></p></td><td class="cl-70ea957a"><p class="cl-70ea7b26"><span class="cl-70e30e5e">condition</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPF1</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPF2</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPF3</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPS1</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPS2</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">FPS3</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">female</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPF1</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPF2</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPF3</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">fed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPS1</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPS2</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9584"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-70ea9585"><p class="cl-70ea7b26"><span class="cl-70e30e5e">MPS3</span></p></td><td class="cl-70ea9585"><p class="cl-70ea7b26"><span class="cl-70e30e5e">male</span></p></td><td class="cl-70ea9585"><p class="cl-70ea7b26"><span class="cl-70e30e5e">starved</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="345a548d-ea21-42ee-8728-058b1f7adbd6"></div>
+<script>
+var dest = document.getElementById("345a548d-ea21-42ee-8728-058b1f7adbd6");
+var template = document.getElementById("35153314-d8a1-446e-b3de-abcb552cb8df");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 <p>Quantification of the data was done with <code>Kallisto</code>. The
 ouput of <code>Kallisto</code> produces at least two files per sample:
 <code>abundances.tsv</code> and <code>abundances.h5</code>.</p>
@@ -461,7 +362,7 @@ repository</a> as follows.</p>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>count_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/kallisto_counts.csv&#39;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">&#39;transcriptID&#39;</span>)</span></code></pre></div>
 <pre><code>## Rows: 61290 Columns: 13
 ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
@@ -473,7 +374,7 @@ repository</a> as follows.</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv&#39;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 12 Columns: 3
 ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -498,8 +399,8 @@ following:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> count_data,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">colData =</span> metadata,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">design=</span> <span class="sc">~</span> condition)</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">colData =</span> metadata,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">design=</span> <span class="sc">~</span> condition)</span></code></pre></div>
 <pre><code>## converting counts to integer mode</code></pre>
 <pre><code>## Warning in DESeqDataSet(se, design = design, ignoreRank): some variables in design formula are characters, converting
 ## to factors</code></pre>
@@ -558,7 +459,7 @@ particular gene/transcript if raw data were used for the analysis.</p>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Sample Name&#39;</span>,</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Library size&#39;</span>)</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
 <p>To deal with these differences <strong>size factors</strong> need to
 be calculated and then incorporated in the data to make the counts more
 comparable. In the case of <code>DESeq2</code>, the estimated size
@@ -576,109 +477,56 @@ particular gene/transcript across several samples, the counts among
 those samples should be made comparable and not an effect of external
 factors. Several methods for normalizing RNA-seq data have been proposed
 but not all have passed the test of time.</p>
-<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
-<caption>
-Table from: <a
-href="https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html"
-class="uri">https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html</a>
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Normalization method
-</th>
-<th style="text-align:left;">
-Description
-</th>
-<th style="text-align:left;">
-Accounted factors
-</th>
-<th style="text-align:left;">
-Recommendations for use
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-CPM&lt;a0&gt;(counts per million)
-</td>
-<td style="text-align:left;">
-counts scaled by total number of reads
-</td>
-<td style="text-align:left;">
-sequencing depth
-</td>
-<td style="text-align:left;">
-gene count comparisons between replicates of the same
-samplegroup;&lt;a0&gt;NOT for within sample comparisons or DE analysis
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TPM&lt;a0&gt;(transcripts per kilobase million)
-</td>
-<td style="text-align:left;">
-counts per length of transcript (kb) per million reads mapped
-</td>
-<td style="text-align:left;">
-sequencing depth and gene length
-</td>
-<td style="text-align:left;">
-gene count comparisons within a sample or between samples of the same
-sample group;&lt;a0&gt;NOT for DE analysis
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RPKM/FPKM&lt;a0&gt;(reads/fragments per kilobase of exon per million
-reads/fragments mapped)
-</td>
-<td style="text-align:left;">
-similar to TPM
-</td>
-<td style="text-align:left;">
-sequencing depth and gene length
-</td>
-<td style="text-align:left;">
-gene count comparisons between genes within a sample;&lt;a0&gt;NOT for
-between sample comparisons or DE analysis
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DESeq2&lt;92&gt;s&lt;a0&gt;median of ratios
-</td>
-<td style="text-align:left;">
-counts divided by sample-specific size factors determined by median
-ratio of gene counts relative to geometric mean per gene
-</td>
-<td style="text-align:left;">
-sequencing depth and RNA composition
-</td>
-<td style="text-align:left;">
-gene count comparisons between samples and for&lt;a0&gt;DE
-analysis;&lt;a0&gt;NOT for within sample comparisons
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-EdgeR&lt;92&gt;s&lt;a0&gt;trimmed mean of M values (TMM)
-</td>
-<td style="text-align:left;">
-uses a weighted trimmed mean of the log expression ratios between
-samples
-</td>
-<td style="text-align:left;">
-sequencing depth, RNA composition, and gene length
-</td>
-<td style="text-align:left;">
-gene count comparisons between and within samples and for&lt;a0&gt;DE
-analysis
-</td>
-</tr>
-</tbody>
-</table>
+<template id="513d0002-9e62-499b-9b6d-f805c4bd7ccd"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-72a0caec{}.cl-72944c22{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-72994326{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-72995a6e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-72995a78{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-72995a79{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-72a0caec'><thead><tr style="overflow-wrap:break-word;"><td class="cl-72995a6e"><p class="cl-72994326"><span class="cl-72944c22">Normalization method</span></p></td><td class="cl-72995a6e"><p class="cl-72994326"><span class="cl-72944c22">Description</span></p></td><td class="cl-72995a6e"><p class="cl-72994326"><span class="cl-72944c22">Accounted factors</span></p></td><td class="cl-72995a6e"><p class="cl-72994326"><span class="cl-72944c22">Recommendations for use</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">CPM<a0>(counts per million)</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">counts scaled by total number of reads</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">sequencing depth</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">gene count comparisons between replicates of the same samplegroup;<a0>NOT for within sample comparisons or DE analysis</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">TPM<a0>(transcripts per kilobase million)</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">counts per length of transcript (kb) per million reads mapped</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">sequencing depth and gene length</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">gene count comparisons within a sample or between samples of the same sample group;<a0>NOT for DE analysis</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">RPKM/FPKM<a0>(reads/fragments per kilobase of exon per million reads/fragments mapped)</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">similar to TPM</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">sequencing depth and gene length</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">gene count comparisons between genes within a sample;<a0>NOT for between sample comparisons or DE analysis</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">DESeq2<92>s<a0>median of ratios</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">counts divided by sample-specific size factors determined by median ratio of gene counts relative to geometric mean per gene</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">sequencing depth and RNA composition</span></p></td><td class="cl-72995a78"><p class="cl-72994326"><span class="cl-72944c22">gene count comparisons between samples and for<a0>DE analysis;<a0>NOT for within sample comparisons</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-72995a79"><p class="cl-72994326"><span class="cl-72944c22">EdgeR<92>s<a0>trimmed mean of M values (TMM)</span></p></td><td class="cl-72995a79"><p class="cl-72994326"><span class="cl-72944c22">uses a weighted trimmed mean of the log expression ratios between samples</span></p></td><td class="cl-72995a79"><p class="cl-72994326"><span class="cl-72944c22">sequencing depth, RNA composition, and gene length</span></p></td><td class="cl-72995a79"><p class="cl-72994326"><span class="cl-72944c22">gene count comparisons between and within samples and for<a0>DE analysis</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="77706350-57fd-4f9d-9705-5fa36b0c8136"></div>
+<script>
+var dest = document.getElementById("77706350-57fd-4f9d-9705-5fa36b0c8136");
+var template = document.getElementById("513d0002-9e62-499b-9b6d-f805c4bd7ccd");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 <p><code>DESeq2</code> offers two types of normalization methods for
 data exploration and visualization. For differential analysis
 <code>DESeq2</code> “takes into account the dependence of the variance
@@ -695,15 +543,15 @@ work best when the data is independent of its own mean. Something that
 do not happen in RNA-seq data.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vsn)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(dds))</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
 <p>Thus transforming is required.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vsd <span class="ot">&lt;-</span> <span class="fu">vst</span>(dds_e)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds_e)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(vsd))</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(<span class="fu">assay</span>(rld))</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-11-2.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-11-2.png" width="960" /></p>
 </div>
 <div id="checking-transformed-read-counts" class="section level2">
 <h2>Checking transformed read counts</h2>
@@ -725,7 +573,7 @@ treatments we can join our count data with the metadata.</p>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> counts,</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> condition)) <span class="sc">+</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
 <p><strong><em>What if we want to see how count distribution looks for
 the size corrected and transformed data. Should I copy and modify the
 same lines from above with different count matrices?</em></strong></p>
@@ -776,7 +624,7 @@ easily plot with <code>ggarrange</code> from <code>ggpubr</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> count_plots)</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-16-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-16-1.png" width="960" /></p>
 </div>
 <div id="sample-distances" class="section level2">
 <h2>Sample distances</h2>
@@ -796,12 +644,15 @@ exploratory analysis</p>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>annotation <span class="ot">&lt;-</span> <span class="fu">column_to_rownames</span>(metadata, <span class="at">var =</span> <span class="st">&#39;sampleID&#39;</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">as.matrix</span>(sample_dist),</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> colors,</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_row =</span> annotation,</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation)</span></code></pre></div>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ht1 <span class="ot">&lt;-</span> <span class="fu">pheatmap</span>(<span class="fu">as.matrix</span>(sample_dist),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> colors,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">annotation_row =</span> annotation,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">annotation_col =</span> annotation)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>ht1</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-17-1.png" width="960" /></p>
 </div>
 <div id="pca" class="section level2">
 <h2>PCA</h2>
@@ -810,7 +661,7 @@ be used to visualize the similarities between the samples.
 <code>DESeq2</code> even provides a function, <code>plotPCA()</code> to
 directly plot the data</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(vsd, <span class="at">intgroup =</span> <span class="st">&#39;condition&#39;</span>) </span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
 <div class="hl_box">
 <p>The option <code>returnData = TRUE</code> can be added to the
 <code>plotPCA()</code> function to make it return a table with PCA data
@@ -987,7 +838,7 @@ gene of interest. For example to visualize the gene with the largest
 log2-fold change</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>top_lfc_gene <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_sig)[<span class="fu">which.max</span>(res_sig<span class="sc">$</span>log2FoldChange)]</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> top_lfc_gene, <span class="at">intgroup =</span> <span class="st">&#39;condition&#39;</span>)</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-28-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-28-1.png" width="960" /></p>
 <div class="hl_box">
 <p>Similar to the PCA plot, <code>plotCounts</code> can be used to
 retrieve only the data to plot later with <code>ggplot2</code>.</p>
@@ -1002,7 +853,7 @@ retrieve only the data to plot later with <code>ggplot2</code>.</p>
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> gender)) <span class="sc">+</span></span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="dv">3</span>,</span>
 <span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.1</span>)</span></code></pre></div>
-<p><img src="de_files/figure-html/unnamed-chunk-29-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-29-1.png" width="960" /></p>
 </div>
 </div>
 <div id="gene-clustering" class="section level3">
@@ -1013,12 +864,15 @@ pattern of differential expression between the samples. The option
 for better visualization.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sig_mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(vsd)[<span class="fu">rownames</span>(res_sig),]</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(sig_mat,</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">scale =</span> <span class="st">&#39;row&#39;</span>,</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation)</span></code></pre></div>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>ht2 <span class="ot">&lt;-</span> <span class="fu">pheatmap</span>(sig_mat,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale =</span> <span class="st">&#39;row&#39;</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">annotation_col =</span> annotation)</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>ht2</span></code></pre></div>
+<p><img src="de_files/figure-html/unnamed-chunk-30-1.png" width="960" /></p>
 </div>
 <div id="volcano-plot" class="section level3">
 <h3>Volcano plot</h3>
@@ -1045,7 +899,7 @@ the thresholds</p>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(lfc_t, <span class="sc">-</span>lfc_t), <span class="at">linetype =</span> <span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
 <span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 12038 rows containing missing values (geom_point).</code></pre>
-<p><img src="de_files/figure-html/unnamed-chunk-33-1.png" width="576" /></p>
+<p><img src="de_files/figure-html/unnamed-chunk-33-1.png" width="960" /></p>
 </div>
 </div>
 </div>
