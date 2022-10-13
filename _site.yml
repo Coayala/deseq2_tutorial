@@ -14,3 +14,5 @@ output:
   rmdformats::material:
     cards: false
     css: css/styles.css
+    fig_width: 10
+    fig_height: 8

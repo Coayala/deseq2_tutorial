@@ -15,9 +15,8 @@ The data for this tutorial comes from an the salivary glands of 12 *N. pustulatu
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
 
-kableExtra::kbl(
-  read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv')
-  ) %>% kableExtra::kable_material(lightable_options = 'striped')
+read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/metadata.csv') %>% 
+  flextable::flextable(theme_fun = flextable::theme_booktabs())
   
 ```
 
@@ -135,10 +134,7 @@ Because the idea of DE analysis is to compare the expression of a particular gen
 
 ```{r warning=FALSE, echo=FALSE, message=FALSE}
 
-kableExtra::kbl(
-  read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/norm_methods.csv'),
-  caption = 'Table from: https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html'
-  ) %>% kableExtra::kable_material(lightable_options = 'striped')
+read_csv('https://raw.githubusercontent.com/Coayala/deseq2_tutorial/main/data/norm_methods.csv') %>% flextable::flextable(theme_fun = flextable::theme_booktabs())
 ```
 
 `DESeq2` offers two types of normalization methods for data exploration and visualization. For differential analysis `DESeq2` "takes into account the dependence of the variance of counts on the mean value during the dispersion estimation step".
