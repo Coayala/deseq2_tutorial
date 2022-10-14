@@ -8,10 +8,13 @@ This is a tutorial for analyzing RNAseq data using the `DESeq2` and other packag
 These tutorial will start explaining different ways for transcript quantification and how to generate gene-level count data sets.
 
 This tutorial is based on:
+
 - The RNA-seq workflow described by the authors of the `DESeq2` package. You can find the original workflow [here](http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html).
+
 - The RNA-seq by example book from the [Biostar Handbook Collection](https://www.biostarhandbook.com/books/rnaseq/index.html)
 
 Data used for this tutorial comes from the paper:
+
 - Effect of food source availability in the salivary gland transcriptome of the unique burying beetle *Nicrophorus pustulatus* (Coleoptera: Silphidae) (https://doi.org/10.1371/journal.pone.0255660).
 
 # Packages to be used
