@@ -242,11 +242,9 @@ file).</p>
 the intervals listed in the annotation file.</p>
 <div class="hl_box">
 <p><strong>What constitutes overlap?</strong></p>
-<p>xxxxxxx xxxxxxx</p>
-<p>xxxxxx xxxxxxxxx xxxxxxxxx</p>
-<p>xxxxxxx xxxxxxxxx</p>
-<p>xxxxxxx xxxxxxxxx xxxxxxxxx</p>
-<p>|&lt; GENE A &gt;|</p>
+<p align="center">
+<img src="figs/gene_overlap.png" width="350" title="Gene overlap">
+</p>
 <ul>
 <li>How many reads complete overlap gene A?</li>
 <li>How many reads overlap gene A at all?</li>
@@ -256,7 +254,11 @@ researcher must choose the one that is more appropriate for each
 case.</p>
 </div>
 <p>Most commonly used tool for feature quantification of BAM files is
-<code>featureCounts</code>.</p>
+<code>featureCounts</code> and <code>htseq-count</code>. However, the
+way that you count also has some ambiguity.</p>
+<p align="center">
+<img src="figs/counts_mode.PNG" width="350" title="Gene overlap">
+</p>
 </div>
 </div>
 <div id="classification-based-quantification" class="section level1">

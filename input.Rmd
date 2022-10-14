@@ -44,15 +44,9 @@ Once you have the alignment files (SAM/BAM files), the next step is to assign a 
 :::: {.hl_box}
 **What constitutes overlap?**
 
-   xxxxxxx xxxxxxx
-   
-  xxxxxx xxxxxxxxx xxxxxxxxx
-  
-  xxxxxxx xxxxxxxxx
-  
- xxxxxxx xxxxxxxxx xxxxxxxxx
- 
-  |<     GENE A    >|
+<p align="center">
+  <img src="figs/gene_overlap.png" width="350" title="Gene overlap">
+</p>
 
 - How many reads complete overlap gene A?
 - How many reads overlap gene A at all?
@@ -61,7 +55,12 @@ As always there is no correct method for defining overlap, and the researcher mu
 
 ::::
 
-Most commonly used tool for feature quantification of BAM files is `featureCounts`.
+Most commonly used tool for feature quantification of BAM files is `featureCounts` and `htseq-count`. However, the way that you count also has some ambiguity.
+
+<p align="center">
+  <img src="figs/counts_mode.PNG" width="350" title="Gene overlap">
+</p>
+
 
 # Classification-based quantification
 

@@ -2,6 +2,14 @@
 title: "DE analysis"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width = 12,
+                      fig.height = 8,
+                      fig.align = 'center')
+
+```
+
+
 # Importing data
 
 Several tools exist for importing RNA-seq "feature counts" generated from different software into the packages of `Bioconductor`. 
@@ -431,24 +439,30 @@ ht2
 
 Volcano plots are a common way of visualize differential expression data. Sadly, `DESeq2` does not provide a function to plot it directly. However, we can build our own volcano plot with all what we have learned so far.
 
-First lets set threshold for our plot
+<script src="js/hideOutput.js"></script>
+
+Setup threshold for the plot. Extract data for volcano and determine "significant" genes based on the thresholds
+
+<div class="fold s">
 
 ```{r}
+#Thresholds
 lfc_t <- 2
 padj_t <- 0.05
-```
 
-Extract data for volcano and determine "significant" genes based on the thresholds
-
-```{r}
+# Extracting data
 volcano_data <- data.frame(res) %>% 
   mutate(significant = ifelse((abs(log2FoldChange) > lfc_t &
                                  -log10(padj) > -log10(padj_t)), 'yes', 'no'))
 ```
 
+</div>
+
 Plot the volcano with `ggplot2`
 
-```{r}
+<div class="fold s">
+
+```{r collapse=TRUE}
 
 ggplot(volcano_data,
        aes(x = log2FoldChange,
@@ -462,7 +476,7 @@ ggplot(volcano_data,
 
 ```
 
-
+</div>
 
 
 
